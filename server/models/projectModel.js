@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const projectSchema = new mongoose.Schema({
-    title: {
+    projectTitle: {
         type: String,
         required: [true, "Project title is required"],
     },
@@ -9,17 +9,18 @@ const projectSchema = new mongoose.Schema({
         type: String,
         required: [true, "Project description is required"],
     },
-    impact: {
+    projectValue: {
         type: String,
         required: [true, "Project impact is required"],
     },
     status: {
         type: String,
-        required: [true, "Project status is required"],
+        enum: ['V presoji', 'V izvedbi', 'Na čakanju', 'Zaključeno'],
+        default: 'Na čakanju',
     },
-    date: {
+    deadline: {
         type: Date,
-        default: Date.now
+        required: [true, "Project deadline is required"],
     }
 });
 

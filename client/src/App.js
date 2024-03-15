@@ -1,5 +1,5 @@
 import {Route, Routes, useNavigate} from "react-router-dom";
-import {Login, Register, Home} from "./pages"
+import {Login, Register, Home, Project} from "./pages"
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import 'react-toastify/dist/ReactToastify.css';
@@ -14,7 +14,9 @@ function App() {
     const [username, setUsername] = useState("");
     useEffect(() => {
         const verifyCookie = async () => {
-            if (!cookies.token) {
+            //TODO: da bo šlo tut na register
+            console.log(window.location.pathname)
+            if (window.location.pathname !== "/register" && !cookies.token) {
                 navigate("/login");
                 return;
             }
@@ -53,6 +55,7 @@ function App() {
                     <Route path="/" element={<Home{...{username, Logout}}/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/register" element={<Register/>}/>
+                    <Route path="/project" element={<Project/>}/>
                 </Routes>
         </div>
     );

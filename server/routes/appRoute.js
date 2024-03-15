@@ -3,7 +3,7 @@ const { userVerification } = require("../middlewares/authMiddleware");
 const addProject = require("../controllers/appController");
 const router = require("express").Router();
 
-router.post("/signup", Signup);
+router.post("/register", Signup);
 router.post('/login', Login);
 router.post('/',userVerification);
 

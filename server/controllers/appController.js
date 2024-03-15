@@ -2,12 +2,12 @@
 const Project = require("../models/projectModel");
 
 const addProject = async (req, res) => {
-    const {title, description, impact, status} = req.body;
+    const {projectTitle, projectValue, deadline, description} = req.body;
     const newProject = new Project({
-        title,
+        projectTitle,
         description,
-        impact,
-        status
+        projectValue,
+        deadline
     });
     try {
         const savedProject = await newProject.save();
