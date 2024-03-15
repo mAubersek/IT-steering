@@ -3,7 +3,7 @@ import axios from "axios";
 import "../index.css";
 import {Link} from "react-router-dom";
 
-const Home = () => {
+const Home = ( {isAdmin} ) => {
     const [projects, setProjects] = useState([]);
 
     useEffect(() => {
@@ -45,7 +45,7 @@ const Home = () => {
                     <th scope="col">Poslovni učinek</th>
                     <th scope="col">Rok implementacije</th>
                     <th scope="col">Status</th>
-                    <th scope="col"></th>
+                    {isAdmin && <th scope="col"></th>}
                 </tr>
                 </thead>
                 <tbody>
@@ -56,12 +56,14 @@ const Home = () => {
                         <td>{project.projectValue}</td>
                         <td>{new Date(project.deadline).toLocaleDateString()}</td>
                         <td>{project.status}</td>
-                        <td>
-                            <div className="d-flex justify-content-between">
-                                <button type="button" className="btn btn-primary me-1 table-button">Izbriši</button>
-                                <button type="button" className="btn btn-secondary table-button">Uredi</button>
-                            </div>
-                        </td>
+                        {isAdmin && (
+                            <td>
+                                <div className="d-flex justify-content-between">
+                                    <button type="button" className="btn btn-primary me-1 table-button">Izbriši</button>
+                                    <button type="button" className="btn btn-secondary table-button">Uredi</button>
+                                </div>
+                            </td>
+                        )}
                     </tr>
                 ))}
                 </tbody>

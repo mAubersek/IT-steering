@@ -1,10 +1,10 @@
-import {Route, Routes, useNavigate} from "react-router-dom";
-import {Login, Register, Home, Project} from "./pages"
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { Login, Register, Home, Project } from "./pages";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import 'react-toastify/dist/ReactToastify.css';
-import {useCookies} from "react-cookie";
-import React, {useEffect, useState} from "react";
+import { useCookies } from "react-cookie";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "./components/Navbar";
 
@@ -12,10 +12,10 @@ function App() {
     const navigate = useNavigate();
     const [cookies, removeCookie] = useCookies([]);
     const [username, setUsername] = useState("");
+    const [isAdmin, setIsAdmin] = useState(false);
+
     useEffect(() => {
         const verifyCookie = async () => {
-            //TODO: da bo šlo tut na register
-            console.log(window.location.pathname)
             if (window.location.pathname !== "/register" && !cookies.token) {
                 navigate("/login");
                 return;
@@ -27,8 +27,9 @@ function App() {
                     {},
                     { withCredentials: true }
                 );
-                const { status, user } = data;
+                const { status, user, role } = data;
                 setUsername(user);
+                setIsAdmin(role === 'admin');
                 if (status) {
                     // User is logged in
                 } else {
@@ -36,7 +37,6 @@ function App() {
                     navigate("/login");
                 }
             } catch (error) {
-                // Handle error
                 console.error("Error verifying cookie:", error);
             }
         };
@@ -50,13 +50,13 @@ function App() {
 
     return (
         <div className="App">
-                <Navbar{...{username, Logout}} />
-                <Routes>
-                    <Route path="/" element={<Home{...{username, Logout}}/>}/>
-                    <Route path="/login" element={<Login/>}/>
-                    <Route path="/register" element={<Register/>}/>
-                    <Route path="/project" element={<Project/>}/>
-                </Routes>
+            <Navbar {...{ username, isAdmin, Logout }} />
+            <Routes>
+                <Route path="/" element={<Home {...{ isAdmin }} />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/project" element={<Project />} />
+            </Routes>
         </div>
     );
 }
