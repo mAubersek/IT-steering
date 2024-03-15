@@ -8,9 +8,7 @@ const authRoute = require("./Routes/authRoute");
 const PORT = process.env.PORT || 4000;
 const dbURI = "mongodb://127.0.0.1/ITSteeringAppDB";
 mongoose
-    .connect(dbURI, {
-        useUnifiedTopology: true,
-    })
+    .connect(dbURI)
     .then(() => console.log("MongoDB is connected successfully"))
     .catch((err) => console.error(err));
 
@@ -20,7 +18,7 @@ app.listen(PORT, () => {
 
 app.use(
     cors({
-        origin: ["http://localhost:4000"],
+        origin: ["http://localhost:3000"],
         methods: ["GET", "POST", "PUT", "DELETE"],
         credentials: true,
     })
