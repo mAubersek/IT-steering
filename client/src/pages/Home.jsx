@@ -1,56 +1,47 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
-import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-
-const Home = () => {
-    const navigate = useNavigate();
-    const [cookies, removeCookie] = useCookies([]);
-    const [username, setUsername] = useState("");
-    useEffect(() => {
-        const verifyCookie = async () => {
-            if (!cookies.token) {
-                navigate("/login");
-                return;
-            }
-
-            try {
-                const { data } = await axios.post(
-                    "http://localhost:4000",
-                    {},
-                    { withCredentials: true }
-                );
-                const { status, user } = data;
-                setUsername(user);
-                if (status) {
-                    // User is logged in
-                } else {
-                    removeCookie("token");
-                    navigate("/login");
-                }
-            } catch (error) {
-                // Handle error
-                console.error("Error verifying cookie:", error);
-            }
-        };
-        verifyCookie();
-    }, [cookies, navigate, removeCookie]);
-
-    const Logout = () => {
-        removeCookie("token");
-        navigate("/login");
-    };
+import React from "react";
+import "../index.css"
+const Home = ( {username, Logout} ) => {
     return (
-        <>
-            <div className="home_page">
-                <h4>
-                    <span>{username}</span>
-                </h4>
-                <button onClick={ Logout} >LOGOUT</button>
+        <div className="container ml-2 mr-2">
+
+            <div className="row mt-5 mb-3">
+                <div className="col">
+                    <h1>IT Steering</h1>
+                </div>
+                <div className="col d-flex justify-content-end align-items-center">
+                    <button type="button" className="btn btn-primary">Dodaj nov projekt</button>
+                </div>
             </div>
-            <ToastContainer />
-        </>
+
+            <table className="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">Naslov Projekta</th>
+                    <th scope="col">Opis Projekta</th>
+                    <th scope="col">Poslovni učinek</th>
+                    <th scope="col">Rok implementacije</th>
+                    <th scope="col">Status</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Sample naslov</td>
+                    <td>Sample opis</td>
+                    <td>sample učinek</td>
+                    <td>sample rok</td>
+                    <td>sample status</td>
+                    <td>
+                        <div className="d-flex justify-content-between">
+                            <button type="button" className="btn btn-primary me-1 table-button">Izbriši</button>
+                            <button type="button" className="btn btn-secondary table-button" >Uredi</button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
     );
 };
 

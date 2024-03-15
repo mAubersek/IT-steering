@@ -4,9 +4,13 @@ const cors = require("cors");
 const app = express();
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
-const authRoute = require("./Routes/authRoute");
+
+const authRoute = require("./routes/appRoute");
+const appRoute = require("./Routes/appRoute");
+
 const PORT = process.env.PORT || 4000;
 const dbURI = "mongodb://127.0.0.1/ITSteeringAppDB";
+
 mongoose
     .connect(dbURI)
     .then(() => console.log("MongoDB is connected successfully"))
@@ -29,3 +33,4 @@ app.use(cookieParser());
 app.use(express.json());
 
 app.use("/", authRoute);
+app.use("/api", appRoute);

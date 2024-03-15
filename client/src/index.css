@@ -10,3 +10,7 @@
     border: 1px solid darkgray;
     padding: 20px;
 }
+
+.table-button {
+    flex-grow: 1
+}
