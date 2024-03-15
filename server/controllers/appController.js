@@ -19,4 +19,15 @@ const addProject = async (req, res) => {
     }
 };
 
-module.exports = addProject
+const getProjects = async (req, res) => {
+    try {
+        const projects = await Project.find();
+        res
+            .status(200)
+            .json(projects);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+}
+
+module.exports = {addProject, getProjects}

@@ -1,15 +1,39 @@
-import React from "react";
-import "../index.css"
-const Home = ( {username, Logout} ) => {
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import "../index.css";
+import {Link} from "react-router-dom";
+
+const Home = () => {
+    const [projects, setProjects] = useState([]);
+
+    useEffect(() => {
+        const fetchProjects = async () => {
+            try {
+                const response = await axios.get("http://localhost:4000/projects");
+                if (Array.isArray(response.data)) {
+                    setProjects(response.data);
+                } else {
+                    console.error("Projects data is not an array:", response.data);
+                }
+            } catch (error) {
+                console.error("Error fetching projects:", error);
+            }
+        };
+
+        fetchProjects();
+    }, []);
+
     return (
         <div className="container ml-2 mr-2">
-
             <div className="row mt-5 mb-3">
                 <div className="col">
                     <h1>IT Steering</h1>
                 </div>
                 <div className="col d-flex justify-content-end align-items-center">
-                    <button type="button" className="btn btn-primary">Dodaj nov projekt</button>
+                    <Link to="/project">
+                        <button type="button" className="btn btn-primary">Dodaj nov projekt</button>
+                    </Link>
+
                 </div>
             </div>
 
@@ -25,22 +49,23 @@ const Home = ( {username, Logout} ) => {
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Sample naslov</td>
-                    <td>Sample opis</td>
-                    <td>sample učinek</td>
-                    <td>sample rok</td>
-                    <td>sample status</td>
-                    <td>
-                        <div className="d-flex justify-content-between">
-                            <button type="button" className="btn btn-primary me-1 table-button">Izbriši</button>
-                            <button type="button" className="btn btn-secondary table-button" >Uredi</button>
-                        </div>
-                    </td>
-                </tr>
+                {projects.map((project) => (
+                    <tr key={project._id}>
+                        <td>{project.projectTitle}</td>
+                        <td>{project.description}</td>
+                        <td>{project.projectValue}</td>
+                        <td>{new Date(project.deadline).toLocaleDateString()}</td>
+                        <td>{project.status}</td>
+                        <td>
+                            <div className="d-flex justify-content-between">
+                                <button type="button" className="btn btn-primary me-1 table-button">Izbriši</button>
+                                <button type="button" className="btn btn-secondary table-button">Uredi</button>
+                            </div>
+                        </td>
+                    </tr>
+                ))}
                 </tbody>
             </table>
-
         </div>
     );
 };
