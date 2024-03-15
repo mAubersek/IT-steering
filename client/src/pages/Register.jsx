@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
-import {toast} from "react-toastify";
+import {toast, ToastContainer} from "react-toastify";
 
 const Register = () => {
     const navigate = useNavigate();
@@ -100,8 +100,8 @@ const Register = () => {
                         <button type="submit" className="btn btn-primary">Potrdi</button>
                     </div>
                 </div>
-
             </form>
+            <ToastContainer />
         </div>
     );
 };

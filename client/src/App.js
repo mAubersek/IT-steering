@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { Login, Register, Home } from "./pages"
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
     return (
