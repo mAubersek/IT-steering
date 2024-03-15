@@ -11,7 +11,9 @@ const addProject = async (req, res) => {
     });
     try {
         const savedProject = await newProject.save();
-        res.status(200).json(savedProject);
+        res
+            .status(200)
+            .json({ message: "Project added successfully", success: true, savedProject });
     } catch (err) {
         res.status(500).json(err);
     }

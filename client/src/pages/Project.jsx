@@ -1,8 +1,11 @@
 import React, {useState} from "react";
 import axios from "axios";
 import {toast, ToastContainer} from "react-toastify";
+import {useNavigate} from "react-router-dom";
 
 export default function Project() {
+    const navigate = useNavigate();
+
     const [inputValue, setInputValue] = useState({
         projectTitle: "",
         description: "",
@@ -34,6 +37,9 @@ export default function Project() {
             const {success, message} = data;
             if (success) {
                 handleSuccess(message);
+                setTimeout(() => {
+                    navigate("/");
+                }, 1000);
             } else {
                 handleError(message);
             }
