@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 
+
 const Login = () => {
     const navigate = useNavigate();
     const [inputValue, setInputValue] = useState({
@@ -86,7 +87,9 @@ const Login = () => {
                 </div>
                 <div className="row">
                     <div className="col">
-                        <button type="button" className="btn btn-primary">Registracija</button>
+                        <Link to="/register">
+                            <button type="button" className="btn btn-secondary">Registracija</button>
+                        </Link>
                     </div>
                     <div className="col d-flex justify-content-end align-items-center">
                         <button type="submit" className="btn btn-primary">Prijava</button>

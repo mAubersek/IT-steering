@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../index.css";
 import { Link } from "react-router-dom";
-import { createPortal } from "react-dom";
-import ModalComponent from "../components/ModalComponent";
 import Modal from "react-modal"
+import useAuth from "../services/authService";
+import Navbar from "../components/Navbar";
 
 Modal.setAppElement("#root");
 
-const Home = ( {isAdmin} ) => {
+const Home = () => {
+    const { isAdmin } = useAuth();
+
     const [projects, setProjects] = useState([]);
     const [modalIsOpen, setIsOpen] = React.useState(false);
     const [selectedStatus, setSelectedStatus] = useState("");
@@ -61,6 +63,8 @@ const Home = ( {isAdmin} ) => {
     };
 
     return (
+        <>
+        <Navbar />
         <div className="container ml-2 mr-2">
             <div className="row mt-5 mb-3">
                 <div className="col">
@@ -68,7 +72,7 @@ const Home = ( {isAdmin} ) => {
                 </div>
                 <div className="col d-flex justify-content-end align-items-center">
                     <Link to="/project">
-                        <button type="button" className="btn btn-primary">Dodaj nov projekt</button>
+                        <button type="button" className="btn btn-primary">Prijava projekta</button>
                     </Link>
 
                 </div>
@@ -92,7 +96,11 @@ const Home = ( {isAdmin} ) => {
                         <td>{project.description}</td>
                         <td>{project.projectValue}</td>
                         <td>{new Date(project.deadline).toLocaleDateString()}</td>
-                        <td>{project.status}</td>
+                        <td
+                            className={`${project.status.toLowerCase().replace(/\s/g, '-').replace(/č/g, 'c')}`}
+                        >
+                            {project.status}
+                        </td>
                         {isAdmin && (
                             <td>
                                 <div className="d-flex justify-content-between">
@@ -146,6 +154,7 @@ const Home = ( {isAdmin} ) => {
                 </div>
             </Modal>
         </div>
+        </>
     );
 };
 

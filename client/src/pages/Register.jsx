@@ -20,15 +20,13 @@ const Register = () => {
             ...inputValue,
             [name]: value
         })
-
-        console.log(username, password);
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const { data } = await axios.post(
-                "http://localhost:4000/signup",
+                "http://localhost:4000/register",
                 {
                     ...inputValue,
                 },

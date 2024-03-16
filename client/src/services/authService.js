@@ -8,10 +8,12 @@ const useAuth = () => {
     const [cookies, removeCookie] = useCookies([]);
     const [username, setUsername] = useState("");
     const navigate = useNavigate();
+    const[isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
         const verifyCookie = async () => {
-            if (window.location.pathname !== "/register" && !cookies.token) {
+            console.log("Cookie is being verified...");
+            if (!cookies.token) {
                 navigate("/login");
                 return;
             }
@@ -22,8 +24,9 @@ const useAuth = () => {
                     {},
                     { withCredentials: true }
                 );
-                const { status, user } = data;
+                const { status, user, role } = data;
                 setUsername(user);
+                setIsAdmin(role === 'admin');
                 if (!status) {
                     removeCookie("token");
                     navigate("/login");
@@ -41,7 +44,13 @@ const useAuth = () => {
         navigate("/login");
     };
 
-    return { username, logout };
+    const isLoggedIn = () => {
+        return !!cookies.token;
+    };
+
+    return { username, logout, isLoggedIn, isAdmin };
+
+
 };
 
 export default useAuth;
