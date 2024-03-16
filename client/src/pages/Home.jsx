@@ -23,6 +23,15 @@ const Home = ( {isAdmin} ) => {
         fetchProjects();
     }, []);
 
+    const handleDeleteProject = async (projectId) => {
+        try {
+            await axios.delete(`http://localhost:4000/project/${projectId}`);
+            setProjects(projects.filter(project => project._id !== projectId));
+        } catch (error) {
+            console.error("Error deleting project:", error);
+        }
+    };
+
     return (
         <div className="container ml-2 mr-2">
             <div className="row mt-5 mb-3">
@@ -59,7 +68,13 @@ const Home = ( {isAdmin} ) => {
                         {isAdmin && (
                             <td>
                                 <div className="d-flex justify-content-between">
-                                    <button type="button" className="btn btn-primary me-1 table-button">Izbriši</button>
+                                    <button
+                                        type="button"
+                                        className="btn btn-primary me-1 table-button"
+                                        onClick={() => handleDeleteProject(project._id)}
+                                    >
+                                        Izbriši
+                                    </button>
                                     <button type="button" className="btn btn-secondary table-button">Uredi</button>
                                 </div>
                             </td>

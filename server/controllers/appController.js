@@ -30,4 +30,15 @@ const getProjects = async (req, res) => {
     }
 }
 
-module.exports = {addProject, getProjects}
+const deleteProject = async (req, res) => {
+    try {
+        await Project.findByIdAndDelete(req.params.id);
+        res
+            .status(200)
+            .json({ message: "Project deleted successfully", success: true });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+}
+
+module.exports = {addProject, getProjects, deleteProject}
