@@ -1,10 +1,28 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../index.css";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import { createPortal } from "react-dom";
+import ModalComponent from "../components/ModalComponent";
+import Modal from "react-modal"
+
+Modal.setAppElement("#root");
 
 const Home = ( {isAdmin} ) => {
     const [projects, setProjects] = useState([]);
+    const [modalIsOpen, setIsOpen] = React.useState(false);
+    const [selectedStatus, setSelectedStatus] = useState("");
+    const [selectedProject, setSelectedProject] = useState({});
+
+    function openModal(project) {
+        setIsOpen(true);
+        setSelectedStatus(project.status);
+        setSelectedProject(project);
+    }
+
+    function closeModal() {
+        setIsOpen(false);
+    }
 
     useEffect(() => {
         const fetchProjects = async () => {
@@ -29,6 +47,16 @@ const Home = ( {isAdmin} ) => {
             setProjects(projects.filter(project => project._id !== projectId));
         } catch (error) {
             console.error("Error deleting project:", error);
+        }
+    };
+
+    const handleUpdateProject = async () => {
+        try {
+            await axios.put(`http://localhost:4000/project/${selectedProject._id}`, { status: selectedStatus });
+            setProjects(projects.map(project => project._id === selectedProject._id ? { ...project, status: selectedStatus } : project));
+            closeModal();
+        } catch (error) {
+            console.error("Error updating project:", error);
         }
     };
 
@@ -75,7 +103,13 @@ const Home = ( {isAdmin} ) => {
                                     >
                                         Izbriši
                                     </button>
-                                    <button type="button" className="btn btn-secondary table-button">Uredi</button>
+                                    <button
+                                        type="button"
+                                        className="btn btn-secondary table-button"
+                                        onClick={() => openModal(project)}
+                                    >
+                                        Uredi
+                                    </button>
                                 </div>
                             </td>
                         )}
@@ -83,6 +117,34 @@ const Home = ( {isAdmin} ) => {
                 ))}
                 </tbody>
             </table>
+            <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                contentLabel="Modal"
+                className="project-modal"
+            >
+                <div className="modal-content">
+                    <h2>Spremeni status</h2>
+                    <label htmlFor="status">Izberi status:</label>
+                    <select
+                        id="status" value={selectedStatus}
+                        onChange={(e) =>
+                            setSelectedStatus(e.target.value
+                        )}
+                        className="form-select"
+                    >
+                        <option value="V presoji">V presoji</option>
+                        <option value="V izvedbi">V izvedbi</option>
+                        <option value="Na čakanju">Na čakanju</option>
+                        <option value="Zaključeno">Zaključeno</option>
+                    </select>
+                    <div className="d-flex justify-content-between mt-2">
+                        <button className="btn btn-secondary" onClick={closeModal}>Zapri</button>
+                        <button className="btn btn-primary" onClick={handleUpdateProject}>Shrani</button>
+                    </div>
+
+                </div>
+            </Modal>
         </div>
     );
 };

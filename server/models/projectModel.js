@@ -16,7 +16,7 @@ const projectSchema = new mongoose.Schema({
     status: {
         type: String,
         enum: ['V presoji', 'V izvedbi', 'Na čakanju', 'Zaključeno'],
-        default: 'Na čakanju',
+        default: 'V presoji',
     },
     deadline: {
         type: Date,

@@ -41,4 +41,15 @@ const deleteProject = async (req, res) => {
     }
 }
 
-module.exports = {addProject, getProjects, deleteProject}
+const updateProject = async (req, res) => {
+    try {
+        await Project.findByIdAndUpdate(req.params.id, req.body);
+        res
+            .status(200)
+            .json({ message: "Status updated successfully", success: true });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+}
+
+module.exports = {addProject, getProjects, deleteProject, updateProject}
