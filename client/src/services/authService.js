@@ -12,7 +12,7 @@ const useAuth = () => {
 
     useEffect(() => {
         const verifyCookie = async () => {
-            console.log("Cookie is being verified...");
+            //console.log("Cookie is being verified...");
             if (!cookies.token) {
                 navigate("/login");
                 return;

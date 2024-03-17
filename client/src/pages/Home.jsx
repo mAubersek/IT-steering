@@ -65,7 +65,7 @@ const Home = () => {
     return (
         <>
         <Navbar />
-        <div className="container ml-2 mr-2">
+        <div className="container">
             <div className="row mt-5 mb-3">
                 <div className="col">
                     <h1>IT Steering</h1>
@@ -81,23 +81,26 @@ const Home = () => {
             <table className="table table-bordered">
                 <thead>
                 <tr>
-                    <th scope="col">Naslov Projekta</th>
-                    <th scope="col">Opis Projekta</th>
-                    <th scope="col">Poslovni učinek</th>
-                    <th scope="col">Rok implementacije</th>
-                    <th scope="col">Status</th>
+                    <th scope="col" className="align-middle text-center">Naslov Projekta</th>
+                    <th scope="col" className="align-middle text-center">Opis Projekta</th>
+                    <th scope="col" className="align-middle text-center">Poslovni učinek</th>
+                    <th scope="col" className="align-middle text-center">Rok implementacije</th>
+                    <th scope="col" className="align-middle text-center">Status</th>
                     {isAdmin && <th scope="col"></th>}
                 </tr>
                 </thead>
                 <tbody>
                 {projects.map((project) => (
                     <tr key={project._id}>
-                        <td>{project.projectTitle}</td>
-                        <td>{project.description}</td>
-                        <td>{project.projectValue}</td>
-                        <td>{new Date(project.deadline).toLocaleDateString()}</td>
-                        <td
-                            className={`${project.status.toLowerCase().replace(/\s/g, '-').replace(/č/g, 'c')}`}
+                        <td className="align-middle text-center">{project.projectTitle}</td>
+                        <td className="align-middle text-center">{project.description}</td>
+                        <td className="align-middle text-center">{project.projectValue}</td>
+                        <td className="align-middle text-center">{new Date(project.deadline).toLocaleDateString()}</td>
+                        <td className={`align-middle text-center ${
+                            project
+                                .status.toLowerCase()
+                                .replace(/\s/g, '-')
+                                .replace(/č/g, 'c')}`}
                         >
                             {project.status}
                         </td>
