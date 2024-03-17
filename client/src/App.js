@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { Login, Register, Home, Project } from "./pages";
+import { Login, Register, Home, Project, Db } from "./pages";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -12,6 +12,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/project" element={<Project />} />
+                <Route path="/db" element={<Db />} />
             </Routes>
         </div>
     );

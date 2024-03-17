@@ -13,11 +13,11 @@ const projectSchema = new mongoose.Schema({
         type: String,
         required: [true, "Project impact is required"],
     },
-    status: {
-        type: String,
-        enum: ['V presoji', 'V izvedbi', 'Na čakanju', 'Zaključeno'],
-        default: 'V presoji',
-    },
+        status: {
+            type: String,
+            enum: ['V presoji', 'V izvedbi', 'Na čakanju', 'Zaključeno'],
+            default: 'V presoji',
+        },
     deadline: {
         type: Date,
         required: [true, "Project deadline is required"],
