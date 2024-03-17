@@ -1,0 +1,37 @@
+[
+  {
+    "projectTitle": "Naslov projekta 1",
+    "description": "Opis projekta 1",
+    "projectValue": "Poslovni učinek projekta 1",
+    "status": "V izvedbi",
+    "deadline": "2024-04-04T00:00:00Z"
+  },
+  {
+    "projectTitle": "Naslov projekta 2",
+    "description": "Opis projekta 2",
+    "projectValue": "Poslovni učinek projekta 2",
+    "status": "Na čakanju",
+    "deadline": "2024-04-10T00:00:00Z"
+  },
+  {
+    "projectTitle": "Naslov projekta 3",
+    "description": "Opis projekta 3",
+    "projectValue": "Poslovni učinek projekta 3",
+    "status": "Zaključeno",
+    "deadline": "2024-03-31T00:00:00Z"
+  },
+  {
+    "projectTitle": "Naslov projekta 4",
+    "description": "Opis projekta 4",
+    "projectValue": "Poslovni učinek projekta 4",
+    "status": "V presoji",
+    "deadline": "2024-04-20T00:00:00Z"
+  },
+  {
+    "projectTitle": "Naslov projekta 5",
+    "description": "Opis projekta 5",
+    "projectValue": "Poslovni učinek projekta 5",
+    "status": "V izvedbi",
+    "deadline": "2024-04-15T00:00:00Z"
+  }
+]
